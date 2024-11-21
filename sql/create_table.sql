@@ -23,6 +23,15 @@ create table if not exists user
     index idx_unionId (unionId)
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
+
+insert into user (userAccount, userPassword, unionId, mpOpenId, userName, userAvatar, userProfile, userRole, isDelete)
+values
+-- 普通用户数据
+('zhangsan', 'e10adc3949ba59abbe56e057f20f883e', 'wx_union_2001', 'mp_201', '张三', 'https://randomuser.me/api/portraits/men/11.jpg', '热爱编程，正在学习后端开发。', 'user', 0),
+('lisi', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'wx_union_2002', 'mp_202', '李四', 'https://randomuser.me/api/portraits/men/12.jpg', '摄影爱好者，喜欢探索世界的每一个角落。', 'user', 0),
+('wangxiaoming', '25d55ad283aa400af464c76d713c07ad', null, null, '王小明', 'https://randomuser.me/api/portraits/men/13.jpg', '高中生，梦想成为一名软件工程师。', 'user', 0),
+('liuyun', '5f4dcc3b5aa765d61d8327deb882cf99', 'wx_union_2003', 'mp_203', '刘云', 'https://randomuser.me/api/portraits/women/14.jpg', '健身教练，专注于运动与健康管理。', 'user', 0)
+
 -- 帖子表
 create table if not exists post
 (

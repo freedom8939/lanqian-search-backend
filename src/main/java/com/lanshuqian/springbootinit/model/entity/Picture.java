@@ -7,6 +7,6 @@ import lombok.Data;
  */
 @Data
 public class Picture {
-    String mrul;
+    String murl;
     String title;
 }

@@ -49,7 +49,7 @@ public class CrawlerTest {
             String murl = (String) map.get("murl");
             String title = element.select(".inflnk").get(0).attr("aria-label");
             Picture picture = new Picture();
-            picture.setMrul(murl);
+            picture.setMurl(murl);
             picture.setTitle(title);
             pictures.add(picture);
         }

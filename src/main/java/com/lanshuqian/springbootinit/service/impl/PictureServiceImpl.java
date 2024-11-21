@@ -34,6 +34,7 @@ public class PictureServiceImpl implements PictureService {
         List<Picture> pictures = new ArrayList<>();  //图片
         Elements elements = doc.select(".iuscp.isv");
         for (Element element : elements) {
+
             //取图片地址 murl
             String m = element.select(".iusc").get(0).attr("m");
             //取标题
@@ -41,10 +42,10 @@ public class PictureServiceImpl implements PictureService {
             String murl = (String) map.get("murl");
             String title = element.select(".inflnk").get(0).attr("aria-label");
             Picture picture = new Picture();
-            picture.setMrul(murl);
+            picture.setMurl(murl);
             picture.setTitle(title);
             pictures.add(picture);
-            if(pictures.size() > pageSize){
+            if(pictures.size() >= pageSize){
                 break;
             }
         }

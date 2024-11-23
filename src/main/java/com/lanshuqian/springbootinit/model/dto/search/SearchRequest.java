@@ -9,5 +9,7 @@ import java.io.Serializable;
 public class SearchRequest extends PageRequest implements Serializable {
     private String searchText;
 
+    private String type;
+
     public static final long serialVersionUID = 1L;
 }

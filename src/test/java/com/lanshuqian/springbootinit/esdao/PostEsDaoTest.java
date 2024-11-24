@@ -18,8 +18,8 @@ import org.springframework.data.domain.Sort;
 /**
  * 帖子 ES 操作测试
  *
- * @author <a href="https://github.com/lilanshuqian">程序员蓝书签</a>
- * @from <a href="https://lanshuqian.icu">编程导航知识星球</a>
+ * 
+ * 
  */
 @SpringBootTest
 public class PostEsDaoTest {
@@ -44,22 +44,23 @@ public class PostEsDaoTest {
         Page<PostEsDTO> PostPage = postEsDao.findAll(
                 PageRequest.of(0, 5, Sort.by("createTime")));
         List<PostEsDTO> postList = PostPage.getContent();
+        Optional<PostEsDTO> byId = postEsDao.findById(1L);
+        System.out.println(byId);
         System.out.println(postList);
     }
 
     @Test
     void testAdd() {
         PostEsDTO postEsDTO = new PostEsDTO();
-        postEsDTO.setId(1L);
-        postEsDTO.setTitle("test");
-        postEsDTO.setContent("test");
+        //postEsDTO.setId(1L);
+        postEsDTO.setTitle("蓝书签");
+        postEsDTO.setContent("蓝书签 https://lanshuqian.com");
         postEsDTO.setTags(Arrays.asList("java", "python"));
-        postEsDTO.setThumbNum(1);
-        postEsDTO.setFavourNum(1);
         postEsDTO.setUserId(1L);
         postEsDTO.setCreateTime(new Date());
         postEsDTO.setUpdateTime(new Date());
         postEsDTO.setIsDelete(0);
+        //保存到es
         postEsDao.save(postEsDTO);
         System.out.println(postEsDTO.getId());
     }
@@ -75,9 +76,10 @@ public class PostEsDaoTest {
         System.out.println(postEsDao.count());
     }
 
+
     @Test
-    void testFindByCategory() {
-        List<PostEsDTO> postEsDaoTestList = postEsDao.findByUserId(1L);
+    void testFindByTitle() {
+        List<PostEsDTO> postEsDaoTestList = postEsDao.findByTitle("蓝书签");
         System.out.println(postEsDaoTestList);
     }
 }

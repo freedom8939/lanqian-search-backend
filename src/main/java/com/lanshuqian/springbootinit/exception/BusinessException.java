@@ -5,8 +5,8 @@ import com.lanshuqian.springbootinit.common.ErrorCode;
 /**
  * 自定义异常类
  *
- * @author <a href="https://github.com/lilanshuqian">蓝书签</a>
- * @from <a href="https://lanshuqian.icu">编程导航知识星球</a>
+ * 
+ * 
  */
 public class BusinessException extends RuntimeException {
 

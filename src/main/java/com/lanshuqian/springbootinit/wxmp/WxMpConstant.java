@@ -3,8 +3,8 @@ package com.lanshuqian.springbootinit.wxmp;
 /**
  * 微信公众号相关常量
  *
- * @author <a href="https://github.com/lilanshuqian">蓝书签</a>
- * @from <a href="https://lanshuqian.icu">编程导航知识星球</a>
+ * 
+ * 
  **/
 public class WxMpConstant {
 

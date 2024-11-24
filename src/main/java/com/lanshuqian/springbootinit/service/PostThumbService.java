@@ -7,8 +7,8 @@ import com.lanshuqian.springbootinit.model.entity.User;
 /**
  * 帖子点赞服务
  *
- * @author <a href="https://github.com/lilanshuqian">蓝书签</a>
- * @from <a href="https://lanshuqian.icu">编程导航知识星球</a>
+ * 
+ * 
  */
 public interface PostThumbService extends IService<PostThumb> {
 

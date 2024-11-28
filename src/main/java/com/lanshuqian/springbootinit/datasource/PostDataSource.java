@@ -38,6 +38,9 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +65,10 @@ public class PostDataSource implements DataSource<PostVO> {
         postQueryRequest.setSearchText(searchText);
         postQueryRequest.setCurrent(pageNum);
         postQueryRequest.setPageSize(pageSize);
-        return postService.listPostVOByPage(postQueryRequest,null);
+        ServletRequestAttributes servlet = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = servlet.getRequest();
+        Page<Post> postPage = postService.searchFromEs(postQueryRequest);
+        return postService.getPostVOPage(postPage, request);
 
     }
 }

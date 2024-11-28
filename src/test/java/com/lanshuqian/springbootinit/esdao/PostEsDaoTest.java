@@ -52,7 +52,7 @@ public class PostEsDaoTest {
     @Test
     void testAdd() {
         PostEsDTO postEsDTO = new PostEsDTO();
-        //postEsDTO.setId(1L);
+        postEsDTO.setId(1L);
         postEsDTO.setTitle("蓝书签");
         postEsDTO.setContent("蓝书签 https://lanshuqian.com");
         postEsDTO.setTags(Arrays.asList("java", "python"));

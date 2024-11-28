@@ -34,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.sort.SortBuilder;
@@ -135,7 +136,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 
     @Override
     public Page<Post> searchFromEs(PostQueryRequest postQueryRequest) {
-        //取字段
+        // 取字段
         Long id = postQueryRequest.getId();
         Long notId = postQueryRequest.getNotId();
         String searchText = postQueryRequest.getSearchText();
@@ -154,12 +155,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
 
         // 过滤
         boolQueryBuilder.filter(QueryBuilders.termQuery("isDelete", 0));
+
         if (id != null) {
             boolQueryBuilder.filter(QueryBuilders.termQuery("id", id));
         }
+
         if (notId != null) {
             boolQueryBuilder.mustNot(QueryBuilders.termQuery("id", notId));
         }
+
         if (userId != null) {
             boolQueryBuilder.filter(QueryBuilders.termQuery("userId", userId));
         }
@@ -178,23 +182,26 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
             orTagBoolQueryBuilder.minimumShouldMatch(1);
             boolQueryBuilder.filter(orTagBoolQueryBuilder);
         }
-        // 按关键词检索
+
+        // 使用模糊查询处理 searchText
         if (StringUtils.isNotBlank(searchText)) {
-            boolQueryBuilder.should(QueryBuilders.matchQuery("title", searchText));
-            boolQueryBuilder.should(QueryBuilders.matchQuery("description", searchText));
-            boolQueryBuilder.should(QueryBuilders.matchQuery("content", searchText));
+            boolQueryBuilder.should(QueryBuilders.fuzzyQuery("title", searchText).fuzziness(Fuzziness.AUTO));
+            boolQueryBuilder.should(QueryBuilders.fuzzyQuery("content", searchText).fuzziness(Fuzziness.AUTO));
             boolQueryBuilder.minimumShouldMatch(1);
         }
-        // 按标题检索
+
+        // 使用模糊查询处理标题
         if (StringUtils.isNotBlank(title)) {
-            boolQueryBuilder.should(QueryBuilders.matchQuery("title", title));
+            boolQueryBuilder.should(QueryBuilders.fuzzyQuery("title", title).fuzziness(Fuzziness.AUTO));
             boolQueryBuilder.minimumShouldMatch(1);
         }
-        // 按内容检索
+
+        // 使用模糊查询处理内容
         if (StringUtils.isNotBlank(content)) {
-            boolQueryBuilder.should(QueryBuilders.matchQuery("content", content));
+            boolQueryBuilder.should(QueryBuilders.fuzzyQuery("content", content).fuzziness(Fuzziness.AUTO));
             boolQueryBuilder.minimumShouldMatch(1);
         }
+
         // 排序
         SortBuilder<?> sortBuilder = SortBuilders.scoreSort();
         if (StringUtils.isNotBlank(sortField)) {

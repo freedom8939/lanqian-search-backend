@@ -29,24 +29,15 @@ public class PostEsDaoTestByME {
     @Autowired
     private PostEsDao postEsDao;
 
-
     //测试增删改查
     @Test
     void testCreate(){
         PostEsDTO postEsDTO = new PostEsDTO();
-        postEsDTO.setId(114514L);
-        postEsDTO.setTitle("蓝书签的个人简介");
-        postEsDTO.setContent("姓名：张三\n" +
-                "年龄：22\n" +
-                "职业：高级程序员\n" +
-                "教育背景：计算机科学与技术本科\n" +
-                "技能：\n" +
-                "- 精通 Java、Python、C++，熟悉 React、Vue 等前端框架\n" +
-                "- 扎实的算法与数据结构基础，擅长解决复杂问题\n" +
-                "- 熟悉分布式系统与微服务架构\n" +
-                "- 有开源项目贡献经验");
-        postEsDTO.setTags(Arrays.asList("Java", "Python", "C++"));
-        postEsDTO.setUserId(202321020167L);
+        postEsDTO.setId(2L);
+        postEsDTO.setTitle("海棠的个人简介");
+        postEsDTO.setContent("姓名：李四n +年龄：23n +职业：高级程序员n +教育背景：计算机科学与技术本科n +技能：n +精通 Java、Python、C++，熟悉 React、Vue 等前端框架n +扎实的算法与数据结构基础，擅长解决复杂问题n +熟悉分布式系统与微服务架构n 有开源项目贡献经验n");
+        postEsDTO.setTags(Arrays.asList("Java", "Python","C++"));
+        postEsDTO.setUserId(202321321312L);
         postEsDTO.setCreateTime(new Date());
         postEsDTO.setUpdateTime(new Date());
         postEsDTO.setIsDelete(0);
@@ -58,7 +49,5 @@ public class PostEsDaoTestByME {
     void testRead(){
         postEsDao.deleteById(114514L);
     }
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.lanshuqian.springbootinit.esdao;
 
 import com.lanshuqian.springbootinit.model.dto.post.PostEsDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.jupiter.api.Test;
@@ -29,8 +30,12 @@ public class ElasticRestTemplateTestByME {
     @Test
     void get(){
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        boolQueryBuilder.filter(QueryBuilders.termQuery("isDelete", 0));
-        boolQueryBuilder.should(QueryBuilders.matchQuery("title","蓝书签"));
+
+        // 按标题检索
+        if (StringUtils.isNotBlank("aa")) {
+            boolQueryBuilder.should(QueryBuilders.matchQuery("title", "个人简介"));
+            boolQueryBuilder.minimumShouldMatch(1);
+        }
 
 
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQueryBuilder)
